@@ -8,18 +8,18 @@
 		<version>2.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ashenafiAG.spring.bookstore</groupId>
-	<artifactId>bookstore-withSpring</artifactId>
+	<groupId>com.ashenafiAG.spring.demo</groupId>
+	<artifactId>AshuBookStore-withSpring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>bookstore-withSpring</name>
-	<description>Demo project for Spring Boot</description>
+	<name>AshuBookStore-withSpring</name>
+	<description>Ashu-BookStore project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
 		<dependency>

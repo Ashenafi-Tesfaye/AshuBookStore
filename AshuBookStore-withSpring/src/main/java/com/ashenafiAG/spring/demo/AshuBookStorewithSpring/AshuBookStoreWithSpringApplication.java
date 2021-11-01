@@ -1,13 +1,13 @@
-package com.ashenafiAG.spring.bookstore.bookstorewithSpring;
+package com.ashenafiAG.spring.demo.AshuBookStorewithSpring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BookstoreWithSpringApplication {
+public class AshuBookStoreWithSpringApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BookstoreWithSpringApplication.class, args);
+		SpringApplication.run(AshuBookStoreWithSpringApplication.class, args);
 	}
 
 }
