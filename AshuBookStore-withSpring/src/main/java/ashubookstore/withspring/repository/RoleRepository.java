@@ -1,5 +1,10 @@
 package ashubookstore.withspring.repository;
 
-public class RoleRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+import ashubookstore.withspring.model.Role;
+
+public interface RoleRepository extends JpaRepository<Role, Integer> {
+
+	
 }

@@ -3,7 +3,11 @@ package ashubookstore.withspring.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -11,16 +15,28 @@ import javax.persistence.Table;
 @Entity
 @Table(name="books")
 public class Book {
-
+	
+	@Id
+	@Column(name="book_id", nullable = false, unique = true)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
+	@Column(nullable = true, updatable=true, length = 9)
 	private String isbn;
+	@Column(nullable = true, updatable=true, length = 255)
 	private String authors;
+	@Column(nullable = true, updatable=true)
 	private Integer pubYear;
+	@Column(nullable = false, updatable=true, length = 255)
 	private String title;
+	@Column(nullable = true, updatable=true)
 	private Double averageRating;
+	@Column(nullable = true, updatable=true)
 	private Integer ratings;
+	@Column(nullable = false, updatable=true)
 	private BigDecimal price;
+	@Column(nullable = false, updatable=true, length = 255)
 	private String image;
+	@Column(nullable = false, updatable=true, length = 50)
 	private Long stock;
 	
 	public Book() {
