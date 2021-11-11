@@ -1,6 +1,7 @@
 package ashubookstore.withspring.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
