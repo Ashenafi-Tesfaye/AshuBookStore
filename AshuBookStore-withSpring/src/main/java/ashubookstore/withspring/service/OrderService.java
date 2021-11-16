@@ -23,7 +23,7 @@ public class OrderService {
 		return orderRepository.findFirstByUserIdOrderByDateOrderedDesc(userId);
 	}
 	
-	public void insertOrder(ModelMap modelMap, Long userId, BigDecimal totalCost, Long addressId) {
+	public void insertOrder(ModelMap model, Long userId, BigDecimal totalCost, Long addressId) {
 		Order order = new Order();
 		order.setAddressId(addressId);
 		order.setDateOrdered(new Date());
@@ -33,8 +33,8 @@ public class OrderService {
 		orderRepository.save(order);
 	}
 
-	public Long placeOrder(ModelMap modelMap, Long userId, BigDecimal totalCost, Long addressId) {
-		insertOrder(modelMap, userId, totalCost,addressId);
+	public Long placeOrder(ModelMap model, Long userId, BigDecimal totalCost, Long addressId) {
+		insertOrder(model, userId, totalCost,addressId);
 		return orderRepository.findFirstByOrderByOrderIdDesc().getOrderId();
 	}
 	

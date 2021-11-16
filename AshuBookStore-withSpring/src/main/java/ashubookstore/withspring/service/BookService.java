@@ -44,6 +44,23 @@ public class BookService {
 		}
 	}
 	
+	public List<Book> getQueryResults(String qry) {
+		 List<Book> list = bookRepository.findByTitleContainingOrAuthorsContaining(qry, qry);
+		 if(list.size()>4)
+			 return list.subList(0, 4);
+			 else
+				 return list;
+	}
+	
+	public List<Book> getSearchResults(String qry){
+		List<Book> list = bookRepository.findByTitleContainingOrAuthorsContaining(qry, qry);
+		if(list.size()>25)
+			return list.subList(0, 25);
+		else
+			return list;
+	}
+	
+	
 	public Book getBookById(String id){
 		 return bookRepository.findById(Long.parseLong(id)).get();
 	}
@@ -75,5 +92,7 @@ public class BookService {
 			bookRepository.save(book);
 		}
 	}
+
+
 	
 }
