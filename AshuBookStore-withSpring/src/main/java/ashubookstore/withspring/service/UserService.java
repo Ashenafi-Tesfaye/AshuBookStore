@@ -57,7 +57,7 @@ public class UserService {
 			
 			redirectAttr.addFlashAttribute("ERROR", "Error! Your password did not match. Please try again.");
 		} else {
-			if(isCurrentPasswordValied(currentPassword, email)) {
+			if(isCurrentPasswordValid(currentPassword, email)) {
 				updateUserPassword(newPassword, email);
 				redirectAttr.addFlashAttribute("Success", "Success! Your password has been updated");
 			} else {
@@ -75,7 +75,7 @@ public class UserService {
 	}
 	
 	public void updateUserPassword(String newPassword, Long userId) {
-		User user = getCurrentUserByUserId(userId);
+		User user = getUserByUserId(userId);
 		user.setPassword(passwordEncoder.encode(newPassword));
 		userRepository.save(user);
 	}
@@ -146,7 +146,7 @@ public class UserService {
 		List<Order> orders = orderService.getAllOrdersByUserId(user.getId());
 		for(Order order: orders) {
 			List<Item> orderedBooks = orderedBookService.getOrderedBooksBYOrderId(order.getOrderId());
-			allOrderedBooks.addAll(getAllBooksFromItems(recommendedBooks));
+			allOrderedBooks.addAll(getAllBooksFromItems(orderedBooks));
 			for(Item item:orderedBooks) {
 				for(Book book : bookService.getBooksByAuthor(item.getBook().getAuthors())){
 					if(!allOrderedBooks.contains(book))

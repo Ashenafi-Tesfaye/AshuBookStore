@@ -88,11 +88,11 @@ public class CartController {
 	}
 
 	//Generate a braintreegateway token for payment transaction 
-	
-	@RequestMapping(value= "/payment/token", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Map<String, String> getClientToken(){
-		return paymentService.getClientToken();
-	}
+	/*
+	 * @RequestMapping(value= "/payment/token", method = RequestMethod.GET, produces
+	 * = "application/json") public @ResponseBody Map<String, String>
+	 * getClientToken(){ return paymentService.getClientToken(); }
+	 */
 	
 	@PostMapping("/address/add")
 	public String addNewShippingAddress(ModelMap model, @Valid AddressForm addressForm, BindingResult bindingResult,
@@ -124,7 +124,7 @@ public class CartController {
 		Boolean paymentSuccessful = paymentService.makePayment(orderId, cart.getTotalCost(), paymentMethodNonce);
 		
 		if(paymentSuccessful) {
-			String hash = orderService.getOrderHash(orderId)
+			String hash = orderService.getOrderHash(orderId);
 					
 			orderService.updatePaid(orderId);
 			orderedBookService.insert(cart, orderId);

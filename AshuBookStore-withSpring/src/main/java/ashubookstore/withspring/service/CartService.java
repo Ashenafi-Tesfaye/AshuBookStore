@@ -24,7 +24,7 @@ public class CartService {
 		if(modelMap.get("cart")==null) {
 			Cart cart = new Cart();
 			Book book = bookService.getBookById(request.getParameter("id"));
-			Item item = new Item(book, 1):
+			Item item = new Item(book, 1);
 			cart.addItem(item);
 			modelMap.put("cart", cart);
 			if(request.getSession().getAttribute("user") != null)
@@ -39,7 +39,7 @@ public class CartService {
 					flag = true;
 					
 					if(request.getSession().getAttribute("user") != null)
-						updateItemToUserDatabase(item, (User) request.getSession().getAttribute("user));
+						updateItemToUserDatabase(item, (User) request.getSession().getAttribute("user"));
 					break;
 				}
 				
@@ -50,7 +50,8 @@ public class CartService {
 				Item item = new Item(book, 1);
 				cart.addItem(item);
 				modelMap.put("cart", cart);
-				if(request.getSession().getAttribute("user"));
+				if(request.getSession().getAttribute("user") != null)
+					insertItemToUserDatabase(item, (User) request.getSession().getAttribute("user"));				;
 				
 			}
 		}
@@ -62,11 +63,11 @@ public class CartService {
 		
 	}
 	
-	public void insertItemToUserDatabase(Item item, User, user) {
+	public void insertItemToUserDatabase(Item item, User user) {
 		shoppingCartService.insertItem(item, user);
 	}
 
-	public void deleteItemToUserDatabase(Item item, User, user) {
+	public void deleteItemToUserDatabase(Item item, User user) {
 		shoppingCartService.deleteItem(item, user);
 	}
 
@@ -76,7 +77,7 @@ public class CartService {
        int qty = Integer.parseInt(request.getParameter("quantity"));
        
        for(Item item : cart.getShoppingCart()) {
-    	   if(item.getBook().getId().equals(Long.parseLong(request.getParameter("id")))) {
+    	   if(item.getBook().getId() == (Long.parseLong(request.getParameter("id")))) {
     		   itemToUpdate = item;
     		   break;
     	   }
@@ -91,7 +92,7 @@ public class CartService {
        } else {
     	   itemToUpdate.setQuantity(qty);
     	   if(request.getSession().getAttribute("user") != null) 
-    		   updateIteToUserDatabse(itemToDate, (User) request.getSession().getAttribute("user"));
+    		   updateItemToUserDatabase(itemToUpdate, (User) request.getSession().getAttribute("user"));
        }
        
 	}

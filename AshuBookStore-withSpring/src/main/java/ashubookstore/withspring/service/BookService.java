@@ -34,8 +34,8 @@ public class BookService {
 		return list;
 	}
 	
-	public List<Book> getPopularBooks(String query){
-		List<Book> list = bookRepository.findByTitleContainingOrAuthorsContaining(query, query);
+	public List<Book> getPopularBooks(){
+		List<Book> list = bookRepository.findTop25ByOrderRatingsDesc();
 		if(list.size() > 25) {
 			return list.subList(0, 25);
 		}
@@ -75,7 +75,7 @@ public class BookService {
 	
 	public List<Book> getBooksByAuthor(Book book){
 		List<Book> booksByAuthor = getBooksByAuthor(book.getAuthors());
-		List<Book> popularBooks = getPopularBooks(); // why didn't he pass the parameter String query
+		List<Book> popularBooks = getPopularBooks(); 
 		
 		if(booksByAuthor.isEmpty()) {
 			return popularBooks;

@@ -48,7 +48,7 @@ public class PasswordResetTokenService {
 		String WEB_HOST = "localhost:8080";
 		String token = getUserGeneratedToken(user);
 		String subject = "[OnlineBookStore] Password Reset E-mail";
-		String body = "you 'are receiving this e-mail because you or someone else has requested a password reset for your user account. \r\n" ""
+		String body = "you 'are receiving this e-mail because you or someone else has requested a password reset for your user account. \r\n" 
 				+ "\r\n" + "Click the link below to reset your password:\r\n"+ "http://"+ WEB_HOST
 				+ "/account/password/reset/?token=" + token + "\r\n" + "\r\n"
 				+ "If you did not request a password reset you can safely ignore this email. \r\n" + "";
@@ -66,12 +66,13 @@ public class PasswordResetTokenService {
 		PasswordResetToken passwordResetToken = new PasswordResetToken();
 		passwordResetToken.setUser(user);
 		passwordResetToken.setExpirationDate(getExpirationDate());
-		passwordResetToken.setToken(getUserGeneratedToken());
-		passwordResetToken.save(passwordResetToken);
+		passwordResetToken.setToken(getUserGeneratedToken(user));
+		passwordResetTokenRepository.save(passwordResetToken);
 	}
 	
-	private String getGeneratedToken() {
-		return UUID.randomUUID().toString();
+	private String getGeneratedToken(User user) {
+		return passwordResetTokenRepository.findFirstByUserIdOrderByExpirationDateDesc(user.getId()).getToken();
+		//return UUID.randomUUID().toString();
 	}
 	
 	public Date getExpirationDate() {

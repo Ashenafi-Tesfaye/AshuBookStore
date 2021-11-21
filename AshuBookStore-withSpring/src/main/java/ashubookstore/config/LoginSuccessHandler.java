@@ -9,27 +9,33 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import ashubookstore.withspring.model.enums.RoleType;
 
 @Configuration 
-public class LoginSuccessHandler {
+public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-	protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-	 throws IOException, ServletException {
-		String targetUrl = determineTargetUrl(authentication);
-		if(response.isCommitted()) {
-			
-		}
-		
-		RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-		redirectStrategy.sendRedirect(request, response, targetUrl);
-	}
+	  @Override
+	  protected void handle(HttpServletRequest request, HttpServletResponse
+	  response, Authentication authentication) throws IOException, ServletException
+	  { 
+		  String targetUrl = determineTargetUrl(authentication);
+		  
+	  if(response.isCommitted()) {
+		  return;
+	 	  }
+	  
+	  RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+	  redirectStrategy.sendRedirect(request, response, targetUrl);
+ }
+	 
 	
 	protected String determineTargetUrl(Authentication authentication) {
 		String url = "/login?error=true";
@@ -45,13 +51,15 @@ public class LoginSuccessHandler {
 		//check user role and decide the redirect URL
 		
 		if(roles.contains(RoleType.ADMIN.toString())) {
-			url = "loginSuccessful?role=admin";
-//			url = "/admin";
+			//url = "loginSuccessful?role=admin";
+     		url = "/admin";
 		} else if (roles.contains(RoleType.CUSTOMER.toString())){
-			url = "/loginSuccessful?role=customer";
-	
+			//url = "/loginSuccessful?role=customer";
+			url = "/customer";
 		}
 		
 		return url;
 	}
+
+
 }

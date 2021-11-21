@@ -103,7 +103,7 @@ public class CustomerAccountController {
 	}
 	
 	@RequestMapping("/recommendations")
-	public String getAccountReccomendations(Principlal principal, ModelMap model) {
+	public String getAccountReccomendations(Principal principal, ModelMap model) {
 		userService.getAccountUserRecommendations(principal, model);
 		return "recommendations";
 	}

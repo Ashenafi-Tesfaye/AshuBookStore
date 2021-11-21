@@ -35,35 +35,40 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.antMatchers("/resources/**", "/static/**");
 	}
 	
+	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		http.authorizeHttpRequests()
-		//CUSTOMER & ADMIN
-		.antMatchers("/").permitAll()
-		.antMatcher("/login").permitAll()
-		.antMatcher("/register").permitAll()
-		.antMatcher("/account/change-pass-wrod").permitAll()
-		.antMatcher("/account", "/cart/checkout", "/account/order-details", "/account/order-history").hasAnyAuthority(RoleType.CUSTOMER.toString(), RoleType.ADMIN.toString())
-		.antMatcher("/admin").hasAuthority(RoleType.ADMIN.toString())
-		.and()
-		
-		// Login
-		
-		.formLogin().loginPage("/login")
-//		.usernameParameter("email")
-//		.passwordParameter("password")
-		.failureUrl("/login?error=true")
-		.successHandler(loginSuccessHandler)
-		.loginProcessingUrl("/login.do").permitAll.and()
-		//Logout
-		.logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful").permitAll();
+		http.authorizeRequests()
+			.antMatchers("/admin").hasRole("ADMIN")
+			.antMatchers("/users").hasAnyRole("ADMIN", "USER")
+			
+			// CUSTOMER and ADMIN 
+			
+			.antMatchers("/").permitAll()
+			.antMatchers("/login").permitAll()
+			.antMatchers("/register").permitAll()
+			.antMatchers("/account/change-password").permitAll()
+			.antMatchers("/account", "/cart/checkout", "/account/order-details", "/account/order-history").hasAnyAuthority(RoleType.CUSTOMER.toString(), RoleType.ADMIN.toString())
+			.antMatchers("/account/recommendations", "/account/profile", "/loginSuccessful").hasAnyAuthority(RoleType.CUSTOMER.toString(), RoleType.ADMIN.toString())
+			.antMatchers("/admin").hasAuthority(RoleType.ADMIN.toString())
+			.and()
+			// form login
+			.formLogin().loginPage("/login")
+			.usernameParameter("email")
+			.passwordParameter("password")
+			.failureUrl("/login?error=true")
+			.successHandler(loginSuccessHandler)
+			.loginProcessingUrl("/login.do").permitAll().and()
+			
+			// logout 
+			
+			.logout().logoutUrl("/logout").logoutSuccessUrl("logoutSuccessful").permitAll();
 		
 	}
 		@Bean
 		public BCryptPasswordEncoder getPasswordEncoder() {
 			return new BCryptPasswordEncoder(11);
 		}
-	
 	
 	
 }

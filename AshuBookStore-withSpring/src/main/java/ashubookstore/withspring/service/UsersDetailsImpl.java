@@ -11,7 +11,11 @@ import ashubookstore.withspring.model.User;
 
 public class UsersDetailsImpl implements UserDetails{
 
-	private static final long serialVerisionUID = -986748881501759100L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1969846525452811215L;
+	
 	private User user;
 	
 	public UsersDetailsImpl (User user) {
@@ -21,7 +25,7 @@ public class UsersDetailsImpl implements UserDetails{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singleton(new SimpleGrantedAuthority(user.getUserRole().toString));
+		return Collections.singleton(new SimpleGrantedAuthority(user.getUserRole().toString()));
 	}
 
 	@Override

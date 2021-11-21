@@ -1,11 +1,12 @@
 package ashubookstore.withspring.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.ibm.icu.math.BigDecimal;
+
 
 public class Cart {
 
@@ -46,10 +47,12 @@ public class Cart {
 	
 	public BigDecimal getSubTotal() {
 		BigDecimal total = new BigDecimal("0");
+		
 		for(Item item : shoppingCart) {
-			total=total.add(item.getBook().getPrice().multiply(new BigDecimal(item.getQuantity().toString()));
-		return total;
+			total=total.add(item.getBook().getPrice().multiply(new BigDecimal(item.getQuantity())));
 		}
+		
+		return total; //check if this should be in the look 
 	}
 	
 	public void addItem(Item item) {

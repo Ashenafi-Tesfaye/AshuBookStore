@@ -57,6 +57,7 @@ public class OrderedBookService {
 	}
 	
 	public HashMap<Order, List<Item>> getOrderedBooks(List<Order> allOrderByUserId){
+		HashMap<Order, List<Item>> orders = new HashMap<>();
 		for(Order order:allOrderByUserId) 
 			orders.put(order, getOrderedBooksBYOrderId(order.getOrderId()));
 		return orders;

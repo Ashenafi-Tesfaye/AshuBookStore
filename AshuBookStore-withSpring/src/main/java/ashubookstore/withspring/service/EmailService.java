@@ -22,7 +22,7 @@ public class EmailService {
 		mailSenderImpl.setPort(emailConfiguration.getPort());
 		mailSenderImpl.setUsername(emailConfiguration.getUsername());
 		mailSenderImpl.setPassword(emailConfiguration.getPassword());
-		return mailSenderImpl;;
+		return mailSenderImpl;
 	}
 	
 	public void sendSimpleMessage(String to, String from, String subject, String text) {
