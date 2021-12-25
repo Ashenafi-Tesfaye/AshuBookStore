@@ -1,20 +1,130 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<th:block th:insert="fragments/general.html :: head-links"></th:block>
+<title>Shopping Cart | OnlineBookstore</title>
+</head>
+<body>
+	<th:block th:replace="fragments/general.html :: navbar"></th:block>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<th:block
+		th:if="${session.cart != null and session.cart.getSize() != 0}">
+		<div class="container mt-4" style="margin-left: 25%;">
+			<div class="row" style="margin-left: -20%;">
+				<div class="col-md-8" style="margin-left: 0%;">
 
-<ui:composition template="">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
-	</ui:define>
-	<ui:define name="content">
-	    Add your content here or delete to use the default
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
-	</ui:define>
-</ui:composition>
+					<div class="card card-body bg-light">
+						<div style="margin-bottom: 1%;">
+							<h4 style="font-weight: bold;">Shopping Cart</h4>
+						</div>
+						<table class="table">
+							<thead>
+								<tr style="text-align: center;">
+									<th style="width: 10%">Product</th>
+									<th style="width: 35%"></th>
+									<th style="width: 8%">Price</th>
+									<th style="width: 50%">Quantity</th>
+								</tr>
+							</thead>
+							<tbody>
+								<th:block th:each="item,count : ${cart.getShoppingCart()}">
+									<tr>
+										<td th:title="${item.getBook().title}"><img
+											th:src="${item.getBook().image}" alt="img"
+											style="height: 150px; width: 90px; margin-left: 20px;"></td>
+										<td th:title="${item.getBook().title}"><a
+											th:href="@{/products/book(id=${item.getBook().id}, title=${item.getBook().title})}"
+											style="font-weight: bold; font-size: 20px;"
+											th:text="${item.getBook().title}"></a>
+											<p>
+												by <span th:text="${item.getBook().authors}"></span>
+											</p></td>
+										<td style="color: rgb(236, 74, 74); font-weight: bold;"
+											th:text="|$${item.getBook().price}|"></td>
+										<td>
+											<form th:action="@{/cart/update(id=${item.getBook().id})}"
+												class="form-inline" method="post">
+												<select th:onchange="|changeFun(${count.index})|"
+													name="quantity" class="form-control"
+													style="margin-left: 42%;">
+													<option value="0">0</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+													<option value="8">8</option>
+													<option value="9">9</option>
+													<option selected="selected" th:text="${item.getQuantity()}"></option>
+												</select> <span th:id="${count.index}"></span>
+											</form>
+										</td>
+									</tr>
+								</th:block>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="card card-body bg-light">
+						<h4 style="font-weight: bold;">Cart Summary</h4>
+						<br>
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>Subtotal ([[${session.cart.getSize()}]])</td>
+									<td style="color: rgb(236, 74, 74); font-weight: bold;"
+										th:text="|$${session.cart.getSubTotal()}|"></td>
+								</tr>
+								<tr>
+									<td>Shipping</td>
+									<td style="color: rgb(236, 74, 74); font-weight: bold;"
+										th:text="|$${session.cart.getShippingCost()}|"></td>
+								</tr>
+								<tr style="background-color: #ccffb3; margin-top: 10%;">
+									<td>Total</td>
+									<td style="color: rgb(236, 74, 74); font-weight: bold;"
+										th:text="|$${session.cart.getTotalCost()}|"></td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+						<form th:action="@{/cart/checkout}" method="post">
+							<input class="btn btn-primary btn-block" type="submit"
+								value="Checkout">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container" style="margin-left: 14.3%; margin-top: 1%;">
+			<a href="/" class="btn btn-warning"><i
+				class="fa
+                    fa-angle-left"></i> Continue Shopping</a>
+		</div>
+	</th:block>
+	<th:block
+		th:if="${session.cart == null or session.cart.getSize() == 0}">
+		<div class="container mt-4">
+			<h4>Your Shopping Cart is empty.</h4>
+			<p>
+				If you already have an account, <a th:href="@{/login}">Sign In</a>
+				to see your Cart or continue shopping on <a href="/">OnlineBookstore
+				</a>homepage!
+			</p>
+		</div>
+	</th:block>
+
+	<th:block th:insert="fragments/footer.html :: footer"></th:block>
+	<th:block th:insert="fragments/general.html :: scripts"></th:block>
+
+	<script>
+		function changeFun(id) {
+			document.getElementById(id).innerHTML = '<button class=\"btn btn-warning\" style=\"margin-left: 10%;\">Update</button>';
+		}
+	</script>
+</body>
 </html>

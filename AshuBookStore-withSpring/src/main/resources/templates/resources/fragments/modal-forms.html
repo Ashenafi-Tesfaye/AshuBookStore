@@ -1,20 +1,180 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title></title>
+</head>
+<body>
+	<th:block th:fragment="update-shipping-address">
+		<div class="modal fade" id="updateAddressForm" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100 font-weight-bold">Shipping
+							address</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body mx-3">
+						<div class="md-form mb-5">
+							<form th:action="@{/cart/address/update}"
+								th:object="${addressForm}" method="post">
+								<label for="inputFirstName"><strong>First Name:</strong></label>
+								<input type="text" class="form-control" id="inputName"
+									th:field="*{inputFirstName}" placeholder="Name" required>
+								<br> <label for="inputLastName"><strong>Last
+										Name:</strong></label> <input type="text" class="form-control" id="inputName"
+									th:field="*{inputLastName}" placeholder="Name" required>
+								<br> <label for="inputAddress"><strong>Address
+										1:</strong></label> <input required type="text" class="form-control"
+									th:field="*{inputAddress}" placeholder="1234 Main St">
+								<br> <label for="inputAddress2"><strong>Address
+										2:</strong></label> <input type="text" class="form-control"
+									th:field="*{inputAddress2}"
+									placeholder="Apartment, studio, or floor"> <br> <label
+									for="inputCity"><strong>City:</strong></label> <input required
+									type="text" class="form-control" th:field="*{inputCity}">
+								<br> <label for="inputState"><strong>State:</strong></label>
+								<input required type="text" class="form-control"
+									th:field="*{inputState}"> <br> <label
+									for="inputZip"><strong>ZIP:</strong></label> <input required
+									type="number" class="form-control" th:field="*{inputZip}">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+								<div class="modal-footer d-flex justify-content-center"
+									style="margin-top: 50px;">
+									<button class="btn btn-warning">Add address</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	<th:block th:fragment="add-shipping-address">
+		<div class="modal fade" id="addShippingAddress" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100 font-weight-bold">Shipping
+							address</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body mx-3">
+						<div class="md-form mb-5">
+							<form th:action="@{/cart/address/add}" th:object="${addressForm}"
+								method="post">
+								<label for="inputFirstName"><strong>First Name:</strong></label>
+								<input type="text" class="form-control" id="inputName"
+									th:field="*{inputFirstName}" placeholder="Name" required>
+								<br> <label for="inputLastName"><strong>Last
+										Name:</strong></label> <input type="text" class="form-control" id="inputName"
+									th:field="*{inputLastName}" placeholder="Name" required>
+								<br> <label for="inputAddress"><strong>Address
+										1:</strong></label> <input required type="text" class="form-control"
+									th:field="*{inputAddress}" placeholder="1234 Main St">
+								<br> <label for="inputAddress2"><strong>Address
+										2:</strong></label> <input type="text" class="form-control"
+									th:field="*{inputAddress2}"
+									placeholder="Apartment, studio, or floor"> <br> <label
+									for="inputCity"><strong>City:</strong></label> <input required
+									type="text" class="form-control" th:field="*{inputCity}">
+								<br> <label for="inputState"><strong>State:</strong></label>
+								<input required type="text" class="form-control"
+									th:field="*{inputState}"> <br> <label
+									for="inputZip"><strong>ZIP:</strong></label> <input required
+									type="number" class="form-control" th:field="*{inputZip}">
 
-<ui:composition template="">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
-	</ui:define>
-	<ui:define name="content">
-	    Add your content here or delete to use the default
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
-	</ui:define>
-</ui:composition>
+								<div class="modal-footer d-flex justify-content-center"
+									style="margin-top: 50px;">
+									<button class="btn btn-warning">Add address</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+
+	<th:block th:fragment="update-account-password">
+		<div class="modal fade" id="updateAccountPassword" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100 font-weight-bold">Edit Password</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body mx-3">
+						<div class="md-form mb-5">
+							<form th:action="@{/account/password/update}" method="post">
+								<label for="inputAddress"><strong></strong></label> <input
+									required type="password" class="form-control"
+									name="currentPassword" placeholder="Current password">
+								<br> <label for=""><strong></strong></label> <input
+									required type="password" class="form-control"
+									name="newPassword" placeholder="New password"> <br>
+								<label for="inputCity"><strong></strong></label> <input required
+									type="password" class="form-control" name="confirmPassword"
+									placeholder="Confirm password"> <br>
+
+								<div class="modal-footer d-flex justify-content-center"
+									style="margin-top: 50px;">
+									<button class="btn btn-warning">Update password</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+	<th:block th:fragment="update-account-email">
+		<div class="modal fade" id="updateAccountEmail" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header text-center">
+						<h4 class="modal-title w-100 font-weight-bold">Edit Email</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body mx-3">
+						<div class="md-form mb-5">
+							<form th:action="@{/account/email/update}" method="post">
+								<label for="inputAddress"><strong></strong></label> <input
+									required type="email" class="form-control" name="currentEmail"
+									placeholder="Current email"> <br> <label for=""><strong></strong></label>
+								<input required type="email" class="form-control"
+									name="newEmail" placeholder="New email"> <br> <label
+									for="inputCity"><strong></strong></label> <input required
+									type="email" class="form-control" name="confirmEmail"
+									placeholder="Confirm password"> <br>
+
+								<div class="modal-footer d-flex justify-content-center"
+									style="margin-top: 50px;">
+									<button class="btn btn-warning">Update email</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+
+</body>
 </html>

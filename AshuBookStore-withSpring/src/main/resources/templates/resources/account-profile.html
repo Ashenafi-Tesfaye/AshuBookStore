@@ -1,20 +1,64 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Account profile | OnlineBookstore</title>
+<th:block
+	th:insert="fragments/bootstrap-starter-template.html :: bootstrap-css"></th:block>
+</head>
+<body>
+	<th:block th:replace="fragments/general.html :: navbar"></th:block>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<div style="text-align: center" class="mt-4">
+		<h3>Login &#38; Security</h3>
+	</div>
+	<br>
+	<div class="row justify-content-center align-items-center">
+		<div class="col-md-5">
+			<div class="card card-body bg-white">
+				<table class="table borderless">
+					<th:block th:if="${ERROR}">
+						<span class="alert alert-danger">[[${ERROR}]]</span>
+					</th:block>
+					<th:block th:if="${SUCCESS}">
+						<span class="alert alert-success">[[${SUCCESS}]]</span>
+					</th:block>
+					<tbody>
+						<tr>
+							<td style="font-weight: bold;">Name:</td>
+							<td style="">[[${session.user.firstName}]]
+								[[${session.user.lastName}]]</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold;">Email:</td>
+							<td style="">[[${session.user.email}]]</td>
+							<td><button type="button" class="btn btn-secondary"
+									data-toggle="modal" data-target="#updateAccountEmail">Edit</button></td>
 
-<ui:composition template="">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
-	</ui:define>
-	<ui:define name="content">
-	    Add your content here or delete to use the default
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
-	</ui:define>
-</ui:composition>
+						</tr>
+						<tr>
+							<td style="font-weight: bold;">Password:</td>
+							<td style="">*******************</td>
+							<td><button type="button" class="btn btn-secondary"
+									data-toggle="modal" data-target="#updateAccountPassword">Edit</button>
+							</td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<th:block
+		th:insert="fragments/modal-forms.html :: update-account-password"></th:block>
+	<th:block
+		th:insert="fragments/modal-forms.html :: update-account-email"></th:block>
+
+	<th:block
+		th:insert="fragments/bootstrap-starter-template.html :: bootstrap-scripts"></th:block>
+	<th:block th:insert="fragments/footer.html :: footer"></th:block>
+
+</body>
 </html>

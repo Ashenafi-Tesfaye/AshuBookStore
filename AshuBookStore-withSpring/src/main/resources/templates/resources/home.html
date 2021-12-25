@@ -1,14 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
-	 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <th:block th:insert="fragments/general.html :: head-links"></th:block>
-<title> Home | Ashu</title>
+<title>Home | OnlineBookstore</title>
 </head>
+<body>
+	<th:block th:replace="fragments/general.html :: navbar"></th:block>
 
+	<th:block
+		th:insert="fragments/most-popular-books.html :: most-pop-books"></th:block>
+	<th:block th:insert="fragments/top-rated-books.html :: top-rated-books"></th:block>
+	<th:block
+		th:insert="fragments/top-rated-books-by-year.html :: top-rated-books-by-year"></th:block>
+	<th:block
+		th:insert="fragments/ancient-literature-books.html :: ancient-literature-books"></th:block>
 
+	<th:block th:insert="fragments/footer.html :: footer"></th:block>
+	<th:block th:insert="fragments/general.html :: scripts"></th:block>
+</body>
 </html>

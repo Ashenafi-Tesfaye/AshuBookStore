@@ -1,20 +1,86 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title></title>
+</head>
+<body>
+	<div class="container" th:fragment="top-rated-books">
+		<h4 class="mt-4 mb-4">Top Rated Books</h4>
+		<div class="row">
+			<div class="owl-carousel owl-theme">
+				<div th:each="book : ${topRatedBooksList}">
+					<div class="item" th:title="${book.title}">
+						<div class="card" style="border: none;">
+							<a
+								th:href="@{/products/book(id=${book.id}, title=${book.title})}">
+								<img alt="" th:src="${book.image}"
+								style="height: 210px; width: 120px; margin-left: 20px;">
+							</a>
+							<div class="card-body">
+								<h6>
+									<a style="text-decorations: none;"
+										th:href="@{/products/book(id=${book.id}, title=${book.title})}"
+										th:text="${book.title}"></a>
+								</h6>
 
-<ui:composition template="">
-	<ui:define name="header">
-	    Add your header here or delete to use the default
-	</ui:define>
-	<ui:define name="content">
-	    Add your content here or delete to use the default
-	</ui:define>
-	<ui:define name="footer">
-	    Add your footer here or delete to use the default
-	</ui:define>
-</ui:composition>
+								<p>
+									by <span th:text="${book.authors}"></span>
+								</p>
+								<p>
+									<span th:text="${book.pubYear}"></span>
+								</p>
+								<h5 style="color: red;">
+									$<span class="text-center" th:text="${book.price}"></span>
+								</h5>
+								<th:block
+									th:if="${(T(Math).round(book.averageRating) - book.averageRating) <=
+										0.5
+										and (T(Math).round(book.averageRating) - book.averageRating) >= 0 }">
+									<!-- full stars  -->
+									<th:block
+										th:each="i : ${#numbers.sequence(
+											1,(T(Math).floor(book.averageRating)) )}">
+										<span class='fa fa-star checked' style='color: orange;'></span>
+									</th:block>
+									<!-- half stars -->
+									<span class='fa fa-star-half-full checked'
+										style='color: orange;'></span>
+									<!-- empty stars -->
+									<th:block th:if="${T(Math).floor(book.averageRating) < 4}">
+										<th:block
+											th:each="i : ${#numbers.sequence( 1,(4 -
+											T(Math).floor(book.averageRating)) )}">
+											<span class='fa fa-star'></span>
+										</th:block>
+									</th:block>
+								</th:block>
+								<th:block
+									th:unless="${(T(Math).round(book.averageRating) - book.averageRating)
+									<= 0.5
+										and (T(Math).round(book.averageRating) - book.averageRating) >= 0 }">
+									<!-- full stars  -->
+									<th:block
+										th:each="i : ${#numbers.sequence(
+											1,(T(Math).floor(book.averageRating)) )}">
+										<span class='fa fa-star checked' style='color: orange;'></span>
+									</th:block>
+									<!-- empty stars -->
+									<th:block
+										th:each="i : ${#numbers.sequence( 1,(5 -
+											T(Math).floor(book.averageRating)) )}">
+										<span class='fa fa-star'></span>
+
+									</th:block>
+								</th:block>
+								<span th:text='${T(String).format("%, d", book.ratings)}'></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
